@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.intellij") version "1.2.0" // Плагин для разработки плагинов IntelliJ IDEA
+    id("org.jetbrains.intellij") version "1.13.0" // Плагин для разработки плагинов IntelliJ IDEA
     java
 }
 
@@ -16,8 +16,9 @@ dependencies {
 }
 
 intellij {
-    version.set("20244.1.3") // Версия IntelliJ IDEA
-    type.set("IC") // Community Edition или Ultimate Edition
+    version.set("2022.1.3") // Версия IntelliJ IDEA
+    type.set("IU") // Community Edition или Ultimate Edition
+    plugins.set(listOf("org.jetbrains.kotlin"))
 }
 
 tasks {
