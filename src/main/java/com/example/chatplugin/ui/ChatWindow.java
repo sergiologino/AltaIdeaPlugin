@@ -13,7 +13,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ChatWindow extends SimpleToolWindowPanel {
 
@@ -96,16 +101,18 @@ public class ChatWindow extends SimpleToolWindowPanel {
                         chatList.addItem(chat);
                     }
                 } else {
-                    chatArea.append("Failed to load chat list.\n");
+                    chatArea.append("Failed to load chat list: " + response.message() + "\n");
                 }
             }
 
             @Override
             public void onFailure(Call<List<String>> call, Throwable t) {
                 chatArea.append("Error loading chats: " + t.getMessage() + "\n");
+                t.printStackTrace();
             }
         });
     }
+
 
     private void createNewChat(String chatName) {
         ApiClient.getInstance().getChatApiService().createChat(chatName).enqueue(new Callback<Void>() {
@@ -156,4 +163,23 @@ public class ChatWindow extends SimpleToolWindowPanel {
         String response = "Response from ChatGPT";
         chatArea.append("ChatGPT: " + response + "\n");
     }
+    private String readAllFiles(File dir) throws Exception {
+        if (!dir.exists() || !dir.isDirectory()) {
+            throw new IOException("Directory does not exist: " + dir.getAbsolutePath());
+        }
+
+        try (Stream<File> files = Files.walk(dir.toPath()).map(java.nio.file.Path::toFile)) {
+            return files.filter(File::isFile)
+                    .map(file -> {
+                        try {
+                            return new String(Files.readAllBytes(file.toPath()));
+                        } catch (Exception e) {
+                            chatArea.append("Failed to read file: " + file.getName() + "\n");
+                            return "";
+                        }
+                    })
+                    .collect(Collectors.joining("\n"));
+        }
+    }
+
 }

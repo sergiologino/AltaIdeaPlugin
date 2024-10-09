@@ -1,19 +1,26 @@
 <idea-plugin>
     <id>com.example.chatplugin</id>
     <name>ChatPlugin</name>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <vendor email="you@example.com" url="http://www.example.com">Your Name</vendor>
 
     <description>
         Plugin that integrates ChatGPT with IntelliJ IDEA to assist in project editing and communication.
     </description>
 
-    <!-- Пункт для добавления окна в боковую панель -->
+    <!-- Убедитесь, что версия соответствует используемой версии IntelliJ IDEA -->
+    <idea-version since-build="242" until-build="242.*" />
+
+    <!-- Добавляем 'overrides="true"' для разрешения конфликта -->
+    <depends overrides="true">org.jetbrains.kotlin</depends>
+
+
     <extensions defaultExtensionNs="com.intellij">
+        <registryKeyBean key="kotlin.mpp.tests.force.gradle" overrides="true"/>
         <toolWindow id="ChatGPT"
                     factoryClass="com.example.chatplugin.ChatToolWindowFactory"
                     anchor="left"
                     icon="AllIcons.General.Information"/>
-    </extensions>
 
+    </extensions>
 </idea-plugin>

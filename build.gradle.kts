@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.intellij") version "1.13.0" // Плагин для разработки плагинов IntelliJ IDEA
+    id("org.jetbrains.intellij") version "1.17.1" // Плагин для разработки плагинов IntelliJ IDEA
     java
 }
 
@@ -16,14 +16,16 @@ dependencies {
 }
 
 intellij {
-    version.set("2022.1.3") // Версия IntelliJ IDEA
+    version.set("2024.2.1") // Версия IntelliJ IDEA
     type.set("IU") // Community Edition или Ultimate Edition
-    plugins.set(listOf("org.jetbrains.kotlin"))
+    //plugins.set(listOf("org.jetbrains.kotlin"))
+    //jbrVersion.set("17") // Или укажите нужную версию JBR, например, "17" для Java 17
 }
+
 
 tasks {
     patchPluginXml {
-        sinceBuild.set("221")
-        untilBuild.set("223.*")
+        sinceBuild.set("242")
+        untilBuild.set("242.*")
     }
 }
