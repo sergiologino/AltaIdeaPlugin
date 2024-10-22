@@ -2,8 +2,6 @@ package com.example.chatplugin;
 
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.Service;
-import com.intellij.openapi.components.State;
-import com.intellij.openapi.components.StoragePathMacros;
 
 @Service
 //@State(additionalExportFile = StoragePathMacros.CACHE_FILE)
